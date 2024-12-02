@@ -13,7 +13,7 @@ import (
 var loc1 []int
 var loc2 []int
 
-func ReadFile(path string) {
+func readFile(path string) {
     if len(path) == 0 {
         log.Fatal("Invalid file path")
         os.Exit(1)
@@ -45,22 +45,36 @@ func ReadFile(path string) {
     }
 }
 
-func abs(num1 int, num2 int) int {
-    if num1 == num2 {
-        return 0
-    } else if num1 > num2 {
-        return num1 - num2
-    } else {
-        return num2 - num1
-    }
+func lowerBound(nums []int, target int) int {
+    return sort.Search(len(loc2), func(i int) bool {
+        return target <= nums[i] 
+    })
 }
 
-func GetDistance() int {
+func upperBound(nums []int, target int) int {
+    return sort.Search(len(loc2), func(i int) bool {
+        return target < nums[i] 
+    })
+}
+
+func getSimilarityScore() int {
+    var sim int
+    sort.Ints(loc2)
+    for i := 0; i < len(loc1); i++ {
+        low := lowerBound(loc2, loc1[i])
+        if low >= 0 {
+            sim += loc1[i]*((upperBound(loc2, loc1[i]) - low) )
+        }
+    }
+    return sim
+}
+
+func getDistance() int {
     var distance int
     sort.Ints(loc1)
     sort.Ints(loc2)
     for i := 0; i < len(loc1); i++ {
-        distance += abs(loc1[i], loc2[i])
+        distance += Abs(loc1[i], loc2[i])
     }
     return distance
 }
@@ -70,7 +84,9 @@ func main () {
     fmt.Scanln(&path)
     loc1 = make([]int, 0)
     loc2 = make([]int, 0)
-    ReadFile(path)
-    dist := GetDistance()
+    readFile(path)
+    dist := getDistance()
     fmt.Println("Total distance is : ", dist)
+    sim := getSimilarityScore()
+    fmt.Println("Total similarity score is : ", sim)
 }

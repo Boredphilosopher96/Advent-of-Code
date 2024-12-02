@@ -12,5 +12,5 @@ input_filename="${input_files[$1-1]}"
 echo "running solution file $filename with input file $input_filename"
 
 basename="outputs/${filename%.*}"
-go build -o $basename $filename
+go build -o $basename $filename utils.go
 echo "$input_filename" | "./${basename}"
