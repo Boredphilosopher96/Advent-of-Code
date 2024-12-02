@@ -59,7 +59,7 @@ func GetDistance() int {
     var distance int
     sort.Ints(loc1)
     sort.Ints(loc2)
-    for i := 0; i < len(loc1) - 1; i++ {
+    for i := 0; i < len(loc1); i++ {
         distance += abs(loc1[i], loc2[i])
     }
     return distance
