@@ -1,6 +1,6 @@
 #!/bin/bash
-go_files=("day1.go")
-input_files=("./inputs/day1.txt")
+go_files=("day1.go" "day2.go")
+input_files=("./inputs/day1.txt" "./inputs/day2.txt")
 
 if (( $# != 1 )); then
     >&2 echo "Illegal parameters. Pass only one parameter to suggest which day's advent of code you are trying to solve"
